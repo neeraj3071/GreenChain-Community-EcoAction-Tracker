@@ -1,0 +1,61 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
+import os
+
+from app.routers import auth, actions, leaderboard, challenges, social, achievements, carbon_calculator
+from app.services.database import connect_to_mongo, close_mongo_connection
+
+# Load environment variables
+load_dotenv()
+
+# Create FastAPI instance
+app = FastAPI(
+    title="GreenChain API",
+    description="Community Eco Action Tracker API",
+    version="1.0.0"
+)
+
+# CORS middleware configuration
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[os.getenv("FRONTEND_URL", "http://localhost:3000")],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Database connection events
+@app.on_event("startup")
+async def startup_db_client():
+    await connect_to_mongo()
+
+@app.on_event("shutdown")
+async def shutdown_db_client():
+    await close_mongo_connection()
+
+# Include routers
+app.include_router(auth.router, prefix="/api/auth", tags=["authentication"])
+app.include_router(actions.router, prefix="/api/actions", tags=["actions"])
+app.include_router(leaderboard.router, prefix="/api/leaderboard", tags=["leaderboard"])
+app.include_router(challenges.router, prefix="/api/challenges", tags=["challenges"])
+app.include_router(social.router, prefix="/api/social", tags=["social"])
+app.include_router(achievements.router, prefix="/api/achievements", tags=["achievements"])
+app.include_router(carbon_calculator.router, prefix="/api/carbon", tags=["carbon-calculator"])
+
+@app.get("/")
+async def root():
+    return {"message": "GreenChain API is running!"}
+
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy"}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(
+        "main:app",
+        host=os.getenv("HOST", "127.0.0.1"),
+        port=int(os.getenv("PORT", 8000)),
+        reload=True
+    )

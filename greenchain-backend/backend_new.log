@@ -1,0 +1,24 @@
+/Users/neerajsaini/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:     Started server process [82442]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+✅ Gemini AI initialized successfully with gemini-2.0-flash model
+Connected to MongoDB
+📧 Received OTP request for email: test@example.com
+❌ Email test@example.com already registered
+INFO:     127.0.0.1:56574 - "POST /api/auth/send-verification-otp HTTP/1.1" 400 Bad Request
+📧 Received OTP request for email: newuser@example.com
+✅ Email newuser@example.com is available, sending OTP...
+📧 Generated OTP for newuser@example.com: 705313
+🔐 OTP stored for newuser@example.com: 705313
+❌ Failed to send email: (535, '5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 6a1803df08f44-87bc35b3a88sm45676766d6.64 - gsmtp')
+Development OTP for newuser@example.com: 705313
+✅ OTP sent successfully: 705313
+INFO:     127.0.0.1:56581 - "POST /api/auth/send-verification-otp HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [82442]
+Disconnected from MongoDB

@@ -1,0 +1,42 @@
+/Users/neerajsaini/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:     Started server process [85189]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+✅ Gemini AI initialized successfully with gemini-2.0-flash model
+Connected to MongoDB
+✅ OTP email sent to test@example.com
+INFO:     127.0.0.1:57014 - "POST /api/auth/test-email HTTP/1.1" 200 OK
+📧 Received OTP request for email: neerajsaini3071@gmail.com
+❌ Email neerajsaini3071@gmail.com already registered
+INFO:     127.0.0.1:57022 - "POST /api/auth/send-verification-otp HTTP/1.1" 400 Bad Request
+📧 Generated login OTP for neerajsaini3071@gmail.com: 882278
+🔐 OTP stored for neerajsaini3071@gmail.com: 882278
+✅ OTP email sent to neerajsaini3071@gmail.com
+INFO:     127.0.0.1:57029 - "POST /api/auth/send-login-otp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57047 - "OPTIONS /api/auth/send-login-otp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57048 - "OPTIONS /api/auth/send-login-otp HTTP/1.1" 200 OK
+📧 Generated login OTP for neerajsaini3071@gmail.com: 339924
+📧 Generated login OTP for neerajsaini3071@gmail.com: 565176
+🔐 OTP stored for neerajsaini3071@gmail.com: 339924
+🔐 OTP stored for neerajsaini3071@gmail.com: 565176
+✅ OTP email sent to neerajsaini3071@gmail.com
+INFO:     127.0.0.1:57047 - "POST /api/auth/send-login-otp HTTP/1.1" 200 OK
+✅ OTP email sent to neerajsaini3071@gmail.com
+INFO:     127.0.0.1:57048 - "POST /api/auth/send-login-otp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57056 - "OPTIONS /api/auth/verify-otp HTTP/1.1" 200 OK
+❌ Invalid or expired OTP for neerajsaini3071@gmail.com
+✅ OTP verified for neerajsaini3071@gmail.com
+INFO:     127.0.0.1:57056 - "POST /api/auth/verify-otp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57056 - "OPTIONS /api/auth/login-with-otp HTTP/1.1" 200 OK
+❌ Invalid or expired OTP for neerajsaini3071@gmail.com
+INFO:     127.0.0.1:57056 - "POST /api/auth/login-with-otp HTTP/1.1" 400 Bad Request
+❌ Invalid or expired OTP for neerajsaini3071@gmail.com
+❌ Invalid or expired OTP for neerajsaini3071@gmail.com
+INFO:     127.0.0.1:57056 - "POST /api/auth/verify-otp HTTP/1.1" 400 Bad Request
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [85189]
+Disconnected from MongoDB

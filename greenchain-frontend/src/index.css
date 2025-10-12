@@ -1,0 +1,38 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Custom GreenChain color classes */
+.text-green-primary { color: #059669; }
+.text-green-secondary { color: #065f46; }
+.bg-green-primary { background-color: #059669; }
+.bg-green-secondary { background-color: #065f46; }
+.border-green-primary { border-color: #059669; }
+
+/* Hover effects */
+.hover\:bg-green-primary:hover { background-color: #059669; }
+.hover\:text-green-primary:hover { color: #059669; }
+
+/* Focus effects */
+.focus\:ring-green-primary:focus {
+  --tw-ring-color: #059669;
+}
+
+.focus\:border-green-primary:focus {
+  border-color: #059669;
+}

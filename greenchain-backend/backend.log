@@ -1,0 +1,164 @@
+/Users/neerajsaini/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:     Will watch for changes in these directories: ['/Users/neerajsaini/Desktop/Hack_dearborn_4/greenchain-backend']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [88006] using WatchFiles
+✅ Gemini AI initialized successfully with gemini-2.0-flash model
+/Users/neerajsaini/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:     Started server process [88009]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+✅ Gemini AI initialized successfully with gemini-2.0-flash model
+Connected to MongoDB
+INFO:     127.0.0.1:57484 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57505 - "OPTIONS /api/auth/send-verification-otp HTTP/1.1" 200 OK
+📧 Received OTP request for email: neerajsa@umich.edu
+✅ Email neerajsa@umich.edu is available, sending OTP...
+📧 Generated OTP for neerajsa@umich.edu: 110297
+🔐 OTP stored for neerajsa@umich.edu: 110297
+✅ OTP email sent to neerajsa@umich.edu
+✅ OTP sent successfully: 110297
+INFO:     127.0.0.1:57505 - "POST /api/auth/send-verification-otp HTTP/1.1" 200 OK
+📧 Received OTP request for email: neerajsa@umich.edu
+📧 Received OTP request for email: neerajsa@umich.edu
+✅ Email neerajsa@umich.edu is available, sending OTP...
+📧 Generated OTP for neerajsa@umich.edu: 881319
+✅ Email neerajsa@umich.edu is available, sending OTP...
+📧 Generated OTP for neerajsa@umich.edu: 071016
+🔐 OTP stored for neerajsa@umich.edu: 881319
+🔐 OTP stored for neerajsa@umich.edu: 071016
+✅ OTP email sent to neerajsa@umich.edu
+✅ OTP sent successfully: 071016
+INFO:     127.0.0.1:57511 - "POST /api/auth/send-verification-otp HTTP/1.1" 200 OK
+✅ OTP email sent to neerajsa@umich.edu
+✅ OTP sent successfully: 881319
+INFO:     127.0.0.1:57505 - "POST /api/auth/send-verification-otp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57525 - "OPTIONS /api/auth/register-with-otp HTTP/1.1" 200 OK
+❌ Invalid or expired OTP for neerajsa@umich.edu
+INFO:     127.0.0.1:57525 - "POST /api/auth/register-with-otp HTTP/1.1" 400 Bad Request
+❌ Invalid or expired OTP for neerajsa@umich.edu
+INFO:     127.0.0.1:57525 - "POST /api/auth/register-with-otp HTTP/1.1" 400 Bad Request
+❌ Invalid or expired OTP for neerajsa@umich.edu
+INFO:     127.0.0.1:57530 - "POST /api/auth/register-with-otp HTTP/1.1" 400 Bad Request
+❌ Invalid or expired OTP for neerajsa@umich.edu
+INFO:     127.0.0.1:57543 - "POST /api/auth/register-with-otp HTTP/1.1" 400 Bad Request
+❌ Invalid or expired OTP for neerajsa@umich.edu
+INFO:     127.0.0.1:57543 - "POST /api/auth/register-with-otp HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:57555 - "GET /health HTTP/1.1" 200 OK
+📧 Received OTP request for email: neerajsa@umich.edu
+✅ Email neerajsa@umich.edu is available, sending OTP...
+📧 Generated OTP for neerajsa@umich.edu: 750924
+🔐 OTP stored for neerajsa@umich.edu: 750924
+✅ OTP email sent to neerajsa@umich.edu
+✅ OTP sent successfully: 750924
+INFO:     127.0.0.1:57569 - "POST /api/auth/send-verification-otp HTTP/1.1" 200 OK
+📧 Received OTP request for email: testuser999@gmail.com
+✅ Email testuser999@gmail.com is available, sending OTP...
+📧 Generated OTP for testuser999@gmail.com: 885908
+🔐 OTP stored for testuser999@gmail.com: 885908
+✅ OTP email sent to testuser999@gmail.com
+✅ OTP sent successfully: 885908
+INFO:     127.0.0.1:57580 - "POST /api/auth/send-verification-otp HTTP/1.1" 200 OK
+✅ OTP verified for testuser999@gmail.com
+🎉 Welcome email sent to testuser999@gmail.com
+🎉 Welcome email sent to new user: testuser999@gmail.com
+✅ User testuser999@gmail.com registered and logged in automatically
+INFO:     127.0.0.1:57592 - "POST /api/auth/register-with-otp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57605 - "GET /api/auth/me HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'app/routers/auth.py', 'app/services/email_service.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [88009]
+Disconnected from MongoDB
+/Users/neerajsaini/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:     Started server process [89428]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+✅ Gemini AI initialized successfully with gemini-2.0-flash model
+Connected to MongoDB
+📧 Received OTP request for email: neerajsa@umich.edu
+✅ Email neerajsa@umich.edu is available, sending OTP...
+📧 Generated OTP for neerajsa@umich.edu: 804676
+🔐 OTP stored for neerajsa@umich.edu: 804676
+✅ OTP email sent to neerajsa@umich.edu
+✅ OTP sent successfully: 804676
+INFO:     127.0.0.1:57661 - "POST /api/auth/send-verification-otp HTTP/1.1" 200 OK
+📧 Received OTP request for email: neerajsa@umich.edu
+📧 Received OTP request for email: neerajsa@umich.edu
+✅ Email neerajsa@umich.edu is available, sending OTP...
+📧 Generated OTP for neerajsa@umich.edu: 284330
+✅ Email neerajsa@umich.edu is available, sending OTP...
+📧 Generated OTP for neerajsa@umich.edu: 577857
+🔐 OTP stored for neerajsa@umich.edu: 577857
+🔐 OTP stored for neerajsa@umich.edu: 284330
+✅ OTP email sent to neerajsa@umich.edu
+✅ OTP sent successfully: 284330
+INFO:     127.0.0.1:57661 - "POST /api/auth/send-verification-otp HTTP/1.1" 200 OK
+✅ OTP email sent to neerajsa@umich.edu
+✅ OTP sent successfully: 577857
+INFO:     127.0.0.1:57667 - "POST /api/auth/send-verification-otp HTTP/1.1" 200 OK
+❌ Invalid or expired OTP for neerajsa@umich.edu
+INFO:     127.0.0.1:57691 - "POST /api/auth/register-with-otp HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:57721 - "OPTIONS /api/auth/send-verification-otp HTTP/1.1" 200 OK
+📧 Received OTP request for email: neerajsa@umich.edu
+✅ Email neerajsa@umich.edu is available, sending OTP...
+📧 Generated OTP for neerajsa@umich.edu: 355839
+🔐 OTP stored for neerajsa@umich.edu: 355839
+✅ OTP email sent to neerajsa@umich.edu
+✅ OTP sent successfully: 355839
+INFO:     127.0.0.1:57721 - "POST /api/auth/send-verification-otp HTTP/1.1" 200 OK
+📧 Received OTP request for email: neerajsa@umich.edu
+📧 Received OTP request for email: neerajsa@umich.edu
+✅ Email neerajsa@umich.edu is available, sending OTP...
+📧 Generated OTP for neerajsa@umich.edu: 560486
+✅ Email neerajsa@umich.edu is available, sending OTP...
+📧 Generated OTP for neerajsa@umich.edu: 027037
+🔐 OTP stored for neerajsa@umich.edu: 560486
+🔐 OTP stored for neerajsa@umich.edu: 027037
+✅ OTP email sent to neerajsa@umich.edu
+✅ OTP sent successfully: 027037
+INFO:     127.0.0.1:57724 - "POST /api/auth/send-verification-otp HTTP/1.1" 200 OK
+✅ OTP email sent to neerajsa@umich.edu
+✅ OTP sent successfully: 560486
+INFO:     127.0.0.1:57721 - "POST /api/auth/send-verification-otp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57738 - "OPTIONS /api/auth/register-with-otp HTTP/1.1" 200 OK
+✅ OTP verified for neerajsa@umich.edu
+🎉 Welcome email sent to neerajsa@umich.edu
+🎉 Welcome email sent to new user: neerajsa@umich.edu
+✅ User neerajsa@umich.edu registered and logged in automatically
+INFO:     127.0.0.1:57738 - "POST /api/auth/register-with-otp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57738 - "OPTIONS /api/auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57738 - "GET /api/auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57738 - "OPTIONS /api/actions/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57741 - "OPTIONS /api/actions/recommendations HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57745 - "OPTIONS /api/leaderboard/my-rank HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57746 - "OPTIONS /api/actions/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57748 - "OPTIONS /api/actions/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57738 - "OPTIONS /api/leaderboard/my-rank HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57741 - "OPTIONS /api/actions/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57749 - "OPTIONS /api/actions/recommendations HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57749 - "GET /api/actions/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57748 - "GET /api/leaderboard/my-rank HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57738 - "GET /api/actions/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57749 - "GET /api/leaderboard/my-rank HTTP/1.1" 200 OK
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1760245632.101985 1618859 alts_credentials.cc:93] ALTS creds ignored. Not running on GCP and untrusted ALTS is not enabled.
+E0000 00:00:1760245632.102037 1618870 alts_credentials.cc:93] ALTS creds ignored. Not running on GCP and untrusted ALTS is not enabled.
+INFO:     127.0.0.1:57745 - "GET /api/actions/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57746 - "GET /api/actions/recommendations HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57746 - "OPTIONS /api/challenges/generate?challenge_type=daily HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57749 - "GET /api/actions/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57745 - "GET /api/actions/recommendations HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57746 - "POST /api/challenges/generate?challenge_type=daily HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57746 - "OPTIONS /api/challenges/generate?challenge_type=weekly HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57745 - "POST /api/challenges/generate?challenge_type=daily HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57746 - "POST /api/challenges/generate?challenge_type=weekly HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57745 - "POST /api/challenges/generate?challenge_type=weekly HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [89428]
+Disconnected from MongoDB
