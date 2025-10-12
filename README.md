@@ -410,23 +410,4 @@ Use the built-in FastAPI docs at `http://localhost:8000/docs` to test all endpoi
 ### License
 MIT License - Feel free to use and modify for your projects!
 
----
-
-## 🎉 Demo Day Presentation
-
-### Key Talking Points
-
-1. **Problem**: Lack of motivation and community in individual eco-actions
-2. **Solution**: AI-powered platform that validates, gamifies, and socializes environmental actions
-3. **Innovation**: Real-time AI validation and personalized recommendations using Gemini
-4. **Impact**: Community-driven approach to environmental consciousness
-5. **Technical**: Full-stack application with modern tech stack and AI integration
-
-### Demo Flow (5 minutes)
-1. Show login/dashboard (30s)
-2. Log new action with AI validation (90s)
-3. Show AI recommendations and challenges (60s)
-4. Display leaderboard and community features (90s)
-5. Highlight AI integration and future potential (60s)
-
 **🚀 Ready to make an environmental impact with AI! 🌍**
