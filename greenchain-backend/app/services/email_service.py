@@ -2,20 +2,23 @@ import os
 import random
 import string
 import aiosmtplib
+from pathlib import Path
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from datetime import datetime, timedelta
 from app.services.database import get_collection
 from dotenv import load_dotenv
 
-load_dotenv()
+BASE_DIR = Path(__file__).resolve().parents[2]
+load_dotenv(BASE_DIR / ".env")
 
 class EmailService:
     def __init__(self):
         self.smtp_server = os.getenv("SMTP_SERVER", "smtp.gmail.com")
         self.smtp_port = int(os.getenv("SMTP_PORT", "587"))
-        self.email_address = os.getenv("EMAIL_ADDRESS")
-        self.email_password = os.getenv("EMAIL_PASSWORD")  # App password for Gmail
+        self.email_address = os.getenv("EMAIL_ADDRESS") or os.getenv("GMAIL_EMAIL")
+        raw_password = os.getenv("EMAIL_PASSWORD") or os.getenv("GMAIL_APP_PASSWORD") or ""
+        self.email_password = raw_password.replace(" ", "").strip()  # App password for Gmail
         
     def generate_otp(self, length=6):
         """Generate a random OTP"""
@@ -24,14 +27,8 @@ class EmailService:
     async def send_otp_email(self, to_email: str, otp: str, purpose: str = "verification"):
         """Send OTP via email"""
         if not self.email_address or not self.email_password or self.email_address == "your-gmail@gmail.com":
-            print("⚠️ Email credentials not configured.")
-            print(f"📧 SIMULATED EMAIL TO: {to_email}")
-            print("=" * 50)
-            print(f"🌱 GreenChain - Your {purpose.title()} Code")
-            print(f"Your {purpose} code is: {otp}")
-            print(f"This code expires in 10 minutes.")
-            print("=" * 50)
-            return True  # For development, return True even without email config
+            print("⚠️ Email credentials not configured. OTP email was not sent.")
+            return False
         
         try:
             # Create message
@@ -81,8 +78,7 @@ class EmailService:
             
         except Exception as e:
             print(f"❌ Failed to send email: {e}")
-            print(f"Development OTP for {to_email}: {otp}")
-            return True  # Return True for development
+            return False
     
     async def store_otp(self, email: str, otp: str, purpose: str = "verification"):
         """Store OTP in database with expiration"""
@@ -135,7 +131,9 @@ class EmailService:
             otp = self.generate_otp()
             print(f"📧 Generated OTP for {email}: {otp}")
             await self.store_otp(email, otp, "email_verification")
-            await self.send_otp_email(email, otp, "email verification")
+            email_sent = await self.send_otp_email(email, otp, "email verification")
+            if not email_sent:
+                raise RuntimeError("Unable to send OTP email. Check Gmail app password and SMTP settings.")
             return otp
         except Exception as e:
             print(f"❌ Error in send_verification_otp: {e}")
@@ -147,7 +145,9 @@ class EmailService:
             otp = self.generate_otp()
             print(f"📧 Generated login OTP for {email}: {otp}")
             await self.store_otp(email, otp, "login_2fa")
-            await self.send_otp_email(email, otp, "login verification")
+            email_sent = await self.send_otp_email(email, otp, "login verification")
+            if not email_sent:
+                raise RuntimeError("Unable to send OTP email. Check Gmail app password and SMTP settings.")
             return otp
         except Exception as e:
             print(f"❌ Error in send_login_otp: {e}")
@@ -159,13 +159,8 @@ class EmailService:
             display_name = full_name if full_name else username
             
             if not self.email_address or not self.email_password or self.email_address == "your-gmail@gmail.com":
-                print("⚠️ Email credentials not configured.")
-                print(f"🎉 WELCOME EMAIL TO: {to_email}")
-                print("=" * 60)
-                print(f"🌱 Welcome to GreenChain, {display_name}!")
-                print(f"Thank you for joining our eco-friendly community!")
-                print("=" * 60)
-                return True
+                print("⚠️ Email credentials not configured. Welcome email was not sent.")
+                return False
             
             # Create message
             message = MIMEMultipart()
@@ -245,8 +240,7 @@ class EmailService:
             
         except Exception as e:
             print(f"❌ Failed to send welcome email: {e}")
-            print(f"Development welcome for {to_email}: Welcome to GreenChain, {display_name}!")
-            return True  # Return True for development
+            return False
 
 # Create global instance
 email_service = EmailService()
