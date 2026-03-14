@@ -35,10 +35,8 @@ services:
       - key: EMAIL_PASSWORD
         sync: false
 
-      # Set this to the frontend Render URL after the frontend is deployed
-      # e.g. https://greenchain-frontend.onrender.com
       - key: FRONTEND_URL
-        sync: false
+        value: https://greenchain-community-ecoaction-tracker.onrender.com
 
   # ── React Frontend (Static Site) ────────────────────────────────────────────
   - type: web
@@ -53,10 +51,8 @@ services:
         source: /*
         destination: /index.html
     envVars:
-      # Set this to the backend Render URL after the backend is deployed
-      # e.g. https://greenchain-backend.onrender.com
       - key: REACT_APP_API_BASE_URL
-        sync: false
+        value: https://greenchain-backend.onrender.com
       # Avoid out-of-memory errors during React build on free tier
       - key: GENERATE_SOURCEMAP
         value: "false"
