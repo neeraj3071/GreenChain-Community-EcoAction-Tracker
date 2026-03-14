@@ -1,0 +1,62 @@
+services:
+  # ── FastAPI Backend ──────────────────────────────────────────────────────────
+  - type: web
+    name: greenchain-backend
+    env: python
+    plan: free
+    rootDir: greenchain-backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      # MongoDB Atlas connection string — set this in the Render dashboard
+      # Format: mongodb+srv://<user>:<password>@<cluster>.mongodb.net/greenchain?retryWrites=true&w=majority
+      - key: MONGODB_URL
+        sync: false
+
+      # JWT — auto-generated on first deploy
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "30"
+
+      # Gemini AI — set in Render dashboard
+      - key: GEMINI_API_KEY
+        sync: false
+
+      # Gmail SMTP — set in Render dashboard
+      - key: SMTP_SERVER
+        value: smtp.gmail.com
+      - key: SMTP_PORT
+        value: "587"
+      - key: EMAIL_ADDRESS
+        sync: false
+      - key: EMAIL_PASSWORD
+        sync: false
+
+      # Set this to the frontend Render URL after the frontend is deployed
+      # e.g. https://greenchain-frontend.onrender.com
+      - key: FRONTEND_URL
+        sync: false
+
+  # ── React Frontend (Static Site) ────────────────────────────────────────────
+  - type: web
+    name: greenchain-frontend
+    env: static
+    plan: free
+    rootDir: greenchain-frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: build
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      # Set this to the backend Render URL after the backend is deployed
+      # e.g. https://greenchain-backend.onrender.com
+      - key: REACT_APP_API_BASE_URL
+        sync: false
+      # Avoid out-of-memory errors during React build on free tier
+      - key: GENERATE_SOURCEMAP
+        value: "false"
