@@ -25,6 +25,18 @@ services:
         value: retryWrites=true&w=majority&appName=GreenChain
       - key: MONGODB_SERVER_SELECTION_TIMEOUT_MS
         value: "8000"
+      - key: MONGODB_CONNECT_TIMEOUT_MS
+        value: "8000"
+      - key: MONGODB_SOCKET_TIMEOUT_MS
+        value: "20000"
+      - key: MONGODB_CONNECT_RETRIES
+        value: "5"
+      - key: MONGODB_CONNECT_RETRY_DELAY_SECONDS
+        value: "3"
+      - key: MONGODB_TLS_ALLOW_INVALID_CERTIFICATES
+        value: "false"
+      - key: MONGODB_TLS_ALLOW_INVALID_HOSTNAMES
+        value: "false"
 
       # JWT — auto-generated on first deploy
       - key: SECRET_KEY

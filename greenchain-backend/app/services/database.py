@@ -1,8 +1,10 @@
+import asyncio
 import os
 from pathlib import Path
 from typing import Optional, Tuple
 from urllib.parse import quote_plus, unquote
 
+import certifi
 from dotenv import load_dotenv
 from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo.errors import PyMongoError
@@ -92,18 +94,41 @@ async def connect_to_mongo():
     server_selection_timeout_ms = int(os.getenv("MONGODB_SERVER_SELECTION_TIMEOUT_MS", "8000"))
     connect_timeout_ms = int(os.getenv("MONGODB_CONNECT_TIMEOUT_MS", "8000"))
     socket_timeout_ms = int(os.getenv("MONGODB_SOCKET_TIMEOUT_MS", "20000"))
+    connect_retries = int(os.getenv("MONGODB_CONNECT_RETRIES", "5"))
+    retry_delay_seconds = float(os.getenv("MONGODB_CONNECT_RETRY_DELAY_SECONDS", "3"))
 
-    try:
-        database.client = AsyncIOMotorClient(
-            mongodb_url,
-            serverSelectionTimeoutMS=server_selection_timeout_ms,
-            connectTimeoutMS=connect_timeout_ms,
-            socketTimeoutMS=socket_timeout_ms,
-        )
-        await database.client.admin.command("ping")
-        print("Connected to MongoDB")
-    except PyMongoError as error:
-        raise RuntimeError(f"Failed to connect to MongoDB: {error}") from error
+    tls_allow_invalid_certificates = os.getenv("MONGODB_TLS_ALLOW_INVALID_CERTIFICATES", "false").lower() == "true"
+    tls_allow_invalid_hostnames = os.getenv("MONGODB_TLS_ALLOW_INVALID_HOSTNAMES", "false").lower() == "true"
+
+    last_error: Optional[Exception] = None
+    for attempt in range(1, connect_retries + 1):
+        try:
+            database.client = AsyncIOMotorClient(
+                mongodb_url,
+                serverSelectionTimeoutMS=server_selection_timeout_ms,
+                connectTimeoutMS=connect_timeout_ms,
+                socketTimeoutMS=socket_timeout_ms,
+                tlsCAFile=certifi.where(),
+                tlsAllowInvalidCertificates=tls_allow_invalid_certificates,
+                tlsAllowInvalidHostnames=tls_allow_invalid_hostnames,
+            )
+            await database.client.admin.command("ping")
+            print("Connected to MongoDB")
+            return
+        except PyMongoError as error:
+            last_error = error
+            if database.client is not None:
+                database.client.close()
+                database.client = None
+
+            if attempt < connect_retries:
+                print(
+                    f"MongoDB connection attempt {attempt}/{connect_retries} failed: {error}. "
+                    f"Retrying in {retry_delay_seconds} seconds..."
+                )
+                await asyncio.sleep(retry_delay_seconds)
+
+    raise RuntimeError(f"Failed to connect to MongoDB: {last_error}") from last_error
 
 
 async def close_mongo_connection():
