@@ -12,6 +12,19 @@ services:
       # Format: mongodb+srv://<user>:<password>@<cluster>.mongodb.net/greenchain?retryWrites=true&w=majority
       - key: MONGODB_URL
         sync: false
+      # Optional alternative to MONGODB_URL (avoids URL-encoding issues with passwords)
+      - key: MONGODB_USERNAME
+        sync: false
+      - key: MONGODB_PASSWORD
+        sync: false
+      - key: MONGODB_HOST
+        value: greenchain.3dvyz3a.mongodb.net
+      - key: MONGODB_DATABASE
+        value: greenchain
+      - key: MONGODB_OPTIONS
+        value: retryWrites=true&w=majority&appName=GreenChain
+      - key: MONGODB_SERVER_SELECTION_TIMEOUT_MS
+        value: "8000"
 
       # JWT — auto-generated on first deploy
       - key: SECRET_KEY
@@ -34,9 +47,11 @@ services:
         sync: false
       - key: EMAIL_PASSWORD
         sync: false
+      - key: SMTP_TIMEOUT_SECONDS
+        value: "15"
 
       - key: FRONTEND_URL
-        value: https://greenchain-community-ecoaction-tracker.onrender.com
+        value: https://greenchain-community-ecoaction-tracker.onrender.com,https://greenchain-community-ecoaction-tracker-dcqo.onrender.com
 
   # ── React Frontend (Static Site) ────────────────────────────────────────────
   - type: web
@@ -52,7 +67,7 @@ services:
         destination: /index.html
     envVars:
       - key: REACT_APP_API_BASE_URL
-        value: https://greenchain-backend.onrender.com
+        value: https://greenchain-community-ecoaction-tracker-dcqo.onrender.com
       # Avoid out-of-memory errors during React build on free tier
       - key: GENERATE_SOURCEMAP
         value: "false"

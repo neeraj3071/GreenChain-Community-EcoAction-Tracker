@@ -4,7 +4,7 @@ const API_BASE_URL =
   process.env.REACT_APP_API_BASE_URL ||
   (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:8000'
-    : 'https://greenchain-backend.onrender.com');
+    : 'https://greenchain-community-ecoaction-tracker-dcqo.onrender.com');
 
 // Create axios instance with default config
 const api = axios.create({

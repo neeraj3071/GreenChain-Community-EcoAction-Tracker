@@ -19,6 +19,8 @@ class EmailService:
         self.email_address = os.getenv("EMAIL_ADDRESS") or os.getenv("GMAIL_EMAIL")
         raw_password = os.getenv("EMAIL_PASSWORD") or os.getenv("GMAIL_APP_PASSWORD") or ""
         self.email_password = raw_password.replace(" ", "").strip()  # App password for Gmail
+        self.smtp_timeout_seconds = float(os.getenv("SMTP_TIMEOUT_SECONDS", "15"))
+        self.frontend_url = os.getenv("FRONTEND_URL", "http://localhost:3000")
         
     def generate_otp(self, length=6):
         """Generate a random OTP"""
@@ -70,7 +72,8 @@ class EmailService:
                 port=self.smtp_port,
                 start_tls=True,
                 username=self.email_address,
-                password=self.email_password
+                password=self.email_password,
+                timeout=self.smtp_timeout_seconds,
             )
             
             print(f"✅ OTP email sent to {to_email}")
@@ -206,7 +209,7 @@ class EmailService:
                     </div>
                     
                     <div style="text-align: center; margin: 30px 0;">
-                        <a href="http://localhost:3000" style="background: #22c55e; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">
+                        <a href="{self.frontend_url}" style="background: #22c55e; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">
                             🌱 Start Your Green Journey
                         </a>
                     </div>
@@ -232,7 +235,8 @@ class EmailService:
                 port=self.smtp_port,
                 start_tls=True,
                 username=self.email_address,
-                password=self.email_password
+                password=self.email_password,
+                timeout=self.smtp_timeout_seconds,
             )
             
             print(f"🎉 Welcome email sent to {to_email}")
