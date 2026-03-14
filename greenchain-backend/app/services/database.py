@@ -29,7 +29,7 @@ def _normalize_mongodb_url(mongodb_url: str) -> str:
         return mongodb_url
 
     scheme, rest = mongodb_url.split("://", 1)
-    userinfo, tail = rest.split("@", 1)
+    userinfo, tail = rest.rsplit("@", 1)
 
     if ":" not in userinfo:
         return mongodb_url
