@@ -3,18 +3,91 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=plus-jakarta-sans@400,500,600,700,800&display=swap');
+
+:root {
+  color-scheme: dark;
+  --app-bg: #0a0e27;
+  --app-text: #eaf0ff;
+  --shell-bg:
+    radial-gradient(circle at 20% 0%, rgba(0, 217, 255, 0.14), transparent 36%),
+    radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.1), transparent 34%),
+    #0a0e27;
+  --card-bg: rgba(26, 31, 58, 0.4);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --muted-text: rgba(188, 203, 235, 0.86);
+  --heading-text: #f2f7ff;
+  --input-bg: rgba(15, 22, 45, 0.72);
+  --input-placeholder: rgba(180, 196, 227, 0.66);
+  --subtle-text: rgba(160, 178, 214, 0.88);
+  --ring-color: rgba(0, 217, 255, 0.5);
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+  --app-bg: #f4f8ff;
+  --app-text: #1a2238;
+  --shell-bg:
+    radial-gradient(circle at 20% 0%, rgba(0, 102, 255, 0.12), transparent 36%),
+    radial-gradient(circle at 80% 10%, rgba(255, 0, 255, 0.08), transparent 32%),
+    #eef4ff;
+  --card-bg: rgba(255, 255, 255, 0.82);
+  --card-border: rgba(18, 30, 64, 0.12);
+  --muted-text: rgba(41, 56, 90, 0.82);
+  --heading-text: #111b35;
+  --input-bg: rgba(255, 255, 255, 0.92);
+  --input-placeholder: rgba(54, 72, 112, 0.62);
+  --subtle-text: rgba(72, 90, 130, 0.86);
+  --ring-color: rgba(0, 102, 255, 0.5);
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Outfit', 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(0, 217, 255, 0.11), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(255, 0, 255, 0.08), transparent 28%),
+    var(--app-bg);
+  color: var(--app-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Space Grotesk', 'Plus Jakarta Sans', 'Satoshi', sans-serif;
+  letter-spacing: -0.03em;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+::selection {
+  background: rgba(69, 183, 184, 0.18);
+  color: #0f172a;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.35);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.5);
 }
 
 /* Custom GreenChain color classes */
@@ -30,9 +103,407 @@ code {
 
 /* Focus effects */
 .focus\:ring-green-primary:focus {
-  --tw-ring-color: #059669;
+  --tw-ring-color: var(--ring-color);
 }
 
 .focus\:border-green-primary:focus {
-  border-color: #059669;
+  border-color: #00d9ff;
+}
+
+.cinematic-auth-shell,
+.cinematic-app-shell {
+  min-height: 100vh;
+  background: var(--shell-bg);
+}
+
+.cinematic-nav {
+  background: color-mix(in srgb, var(--app-bg) 85%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--card-border);
+}
+
+.cinematic-brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  background: linear-gradient(135deg, #00d9ff 0%, #0066ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.cinematic-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.48rem 0.78rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  color: var(--muted-text);
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cinematic-nav-link:hover,
+.cinematic-nav-link.active {
+  color: #00d9ff;
+  border-color: rgba(0, 217, 255, 0.45);
+  background: rgba(0, 217, 255, 0.08);
+}
+
+.cinematic-logout {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--card-border);
+  color: var(--muted-text);
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cinematic-logout:hover {
+  color: #ff00ff;
+  border-color: rgba(255, 0, 255, 0.42);
+  background: rgba(255, 0, 255, 0.08);
+}
+
+.cinematic-app-shell .min-h-screen,
+.cinematic-auth-shell .min-h-screen,
+.cinematic-app-shell .bg-gradient-to-br,
+.cinematic-auth-shell .bg-gradient-to-br,
+.cinematic-app-shell .from-green-50,
+.cinematic-app-shell .to-eco-light,
+.cinematic-auth-shell .from-green-50,
+.cinematic-auth-shell .to-eco-light {
+  background: transparent;
+}
+
+.cinematic-app-shell .bg-white,
+.cinematic-auth-shell .bg-white {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--card-border);
+}
+
+.cinematic-app-shell .shadow-md,
+.cinematic-app-shell .shadow-lg,
+.cinematic-auth-shell .shadow-lg {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.32);
+}
+
+.cinematic-app-shell .text-gray-900,
+.cinematic-auth-shell .text-gray-900 {
+  color: var(--heading-text);
+}
+
+.cinematic-app-shell .text-gray-800,
+.cinematic-app-shell .text-gray-700,
+.cinematic-auth-shell .text-gray-700 {
+  color: var(--heading-text);
+}
+
+.cinematic-app-shell .text-gray-600,
+.cinematic-app-shell .text-gray-500,
+.cinematic-auth-shell .text-gray-600,
+.cinematic-auth-shell .text-gray-500 {
+  color: var(--muted-text);
+}
+
+.cinematic-app-shell .border-gray-200,
+.cinematic-app-shell .border-gray-300,
+.cinematic-auth-shell .border-gray-200,
+.cinematic-auth-shell .border-gray-300 {
+  border-color: var(--card-border);
+}
+
+.cinematic-app-shell input,
+.cinematic-app-shell select,
+.cinematic-app-shell textarea,
+.cinematic-auth-shell input {
+  background: var(--input-bg);
+  color: var(--heading-text);
+  border-color: var(--card-border);
+}
+
+.cinematic-app-shell input::placeholder,
+.cinematic-app-shell textarea::placeholder,
+.cinematic-auth-shell input::placeholder {
+  color: var(--input-placeholder);
+}
+
+.cinematic-app-shell .text-gray-400,
+.cinematic-auth-shell .text-gray-400,
+.cinematic-app-shell .text-slate-400,
+.cinematic-auth-shell .text-slate-400 {
+  color: var(--subtle-text);
+}
+
+.cinematic-app-shell .text-slate-300,
+.cinematic-auth-shell .text-slate-300,
+.cinematic-app-shell .text-slate-200,
+.cinematic-auth-shell .text-slate-200 {
+  color: var(--muted-text);
+}
+
+.cinematic-app-shell .bg-green-primary,
+.cinematic-auth-shell .bg-green-primary,
+.cinematic-app-shell .hover\:bg-green-600:hover,
+.cinematic-auth-shell .hover\:bg-green-600:hover,
+.cinematic-app-shell .hover\:bg-green-primary:hover,
+.cinematic-auth-shell .hover\:bg-green-primary:hover {
+  background: linear-gradient(135deg, #00d9ff 0%, #0066ff 100%);
+  box-shadow: 0 10px 40px rgba(0, 217, 255, 0.4);
+}
+
+.cinematic-app-shell .text-green-primary,
+.cinematic-app-shell .text-green-secondary,
+.cinematic-auth-shell .text-green-primary,
+.cinematic-auth-shell .text-green-secondary {
+  color: #00d9ff;
+}
+
+.cinematic-app-shell .hover\:text-green-primary:hover,
+.cinematic-auth-shell .hover\:text-green-primary:hover {
+  color: #00d9ff;
+}
+
+.cinematic-app-shell .hover\:bg-green-50:hover,
+.cinematic-auth-shell .hover\:bg-green-50:hover {
+  background: rgba(0, 217, 255, 0.1);
+}
+
+.cinematic-app-shell .bg-green-50,
+.cinematic-app-shell .from-green-50,
+.cinematic-app-shell .to-emerald-50,
+.cinematic-app-shell .to-blue-50 {
+  background: rgba(0, 217, 255, 0.08);
+}
+
+.cinematic-app-shell .border-green-primary,
+.cinematic-auth-shell .border-green-primary,
+.cinematic-app-shell .border-green-200,
+.cinematic-app-shell .ring-green-primary,
+.cinematic-auth-shell .ring-green-primary {
+  border-color: rgba(0, 217, 255, 0.5);
+  --tw-ring-color: var(--ring-color);
+}
+
+.cinematic-app-shell button,
+.cinematic-auth-shell button,
+.cinematic-app-shell a,
+.cinematic-auth-shell a {
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-toggle {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-radius: 999px;
+  border: 1px solid var(--card-border);
+  padding: 0.55rem 0.8rem;
+  font-size: 0.82rem;
+  color: var(--heading-text);
+  background: color-mix(in srgb, var(--card-bg) 92%, transparent);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.theme-toggle:hover {
+  border-color: rgba(0, 217, 255, 0.55);
+}
+
+.eco-chat-launcher {
+  position: fixed;
+  left: 14px;
+  bottom: 14px;
+  z-index: 65;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 217, 255, 0.45);
+  padding: 0.6rem 0.86rem;
+  color: #e9f8ff;
+  background: linear-gradient(135deg, rgba(0, 217, 255, 0.2), rgba(0, 102, 255, 0.28));
+  box-shadow: 0 12px 32px rgba(0, 217, 255, 0.3);
+}
+
+[data-theme='light'] .eco-chat-launcher {
+  color: #0f2040;
+  border-color: rgba(0, 102, 255, 0.36);
+  background: linear-gradient(135deg, rgba(0, 102, 255, 0.14), rgba(0, 217, 255, 0.18));
+  box-shadow: 0 10px 28px rgba(0, 102, 255, 0.2);
+}
+
+.eco-chat-panel {
+  position: fixed;
+  left: 14px;
+  bottom: 72px;
+  z-index: 70;
+  width: min(360px, calc(100vw - 20px));
+  max-height: min(72vh, 640px);
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  border-radius: 1rem;
+  border: 1px solid var(--card-border);
+  background: color-mix(in srgb, var(--card-bg) 96%, transparent);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.34);
+  overflow: hidden;
+}
+
+.eco-chat-header {
+  padding: 0.8rem 0.9rem;
+  border-bottom: 1px solid var(--card-border);
+  background: color-mix(in srgb, var(--app-bg) 65%, transparent);
+}
+
+.eco-chat-title-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  color: var(--heading-text);
+}
+
+.eco-chat-title-wrap h3 {
+  margin: 0;
+  font-size: 0.96rem;
+}
+
+.eco-chat-header p {
+  margin: 0.25rem 0 0;
+  font-size: 0.78rem;
+  color: var(--muted-text);
+}
+
+.eco-chat-body {
+  overflow-y: auto;
+  padding: 0.8rem;
+  display: grid;
+  gap: 0.62rem;
+}
+
+.eco-chat-bubble {
+  border-radius: 0.85rem;
+  border: 1px solid var(--card-border);
+  padding: 0.62rem 0.72rem;
+  background: color-mix(in srgb, var(--app-bg) 58%, transparent);
+  color: var(--heading-text);
+}
+
+.eco-chat-bubble p {
+  margin: 0;
+  line-height: 1.45;
+  font-size: 0.86rem;
+}
+
+.eco-chat-bubble.is-user {
+  margin-left: 1.8rem;
+  border-color: rgba(0, 217, 255, 0.4);
+  background: rgba(0, 217, 255, 0.12);
+}
+
+[data-theme='light'] .eco-chat-bubble.is-user {
+  color: #102449;
+  border-color: rgba(0, 102, 255, 0.3);
+  background: rgba(0, 102, 255, 0.11);
+}
+
+.eco-chat-actions {
+  margin: 0.5rem 0 0;
+  padding-left: 1rem;
+  color: var(--muted-text);
+  display: grid;
+  gap: 0.28rem;
+  font-size: 0.79rem;
+}
+
+.eco-chat-prompts {
+  padding: 0.65rem 0.8rem;
+  border-top: 1px solid var(--card-border);
+  display: flex;
+  gap: 0.45rem;
+  overflow-x: auto;
+}
+
+.eco-chat-prompts button {
+  border-radius: 999px;
+  border: 1px solid var(--card-border);
+  background: color-mix(in srgb, var(--app-bg) 70%, transparent);
+  color: var(--muted-text);
+  padding: 0.34rem 0.62rem;
+  white-space: nowrap;
+  font-size: 0.74rem;
+}
+
+.eco-chat-prompts button:hover {
+  border-color: rgba(0, 217, 255, 0.5);
+  color: var(--heading-text);
+}
+
+.eco-chat-input-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.45rem;
+  padding: 0.72rem 0.78rem 0.78rem;
+  border-top: 1px solid var(--card-border);
+}
+
+.eco-chat-input-row input {
+  border-radius: 0.72rem;
+  border: 1px solid var(--card-border);
+  background: var(--input-bg);
+  color: var(--heading-text);
+  padding: 0.55rem 0.68rem;
+}
+
+.eco-chat-input-row input::placeholder {
+  color: var(--input-placeholder);
+}
+
+.eco-chat-input-row button {
+  width: 2.15rem;
+  height: 2.15rem;
+  border-radius: 0.72rem;
+  border: 1px solid rgba(0, 217, 255, 0.48);
+  color: #e4f7ff;
+  background: linear-gradient(135deg, #00d9ff 0%, #0066ff 100%);
+}
+
+.eco-chat-input-row button:disabled,
+.eco-chat-prompts button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+  .theme-toggle {
+    right: 10px;
+    bottom: 10px;
+    padding: 0.5rem 0.72rem;
+  }
+
+  .eco-chat-launcher {
+    left: 10px;
+    bottom: 10px;
+    padding: 0.52rem 0.72rem;
+  }
+
+  .eco-chat-panel {
+    left: 10px;
+    right: 10px;
+    width: auto;
+    bottom: 64px;
+    max-height: 70vh;
+  }
+
+  .cinematic-nav-link {
+    padding: 0.42rem 0.62rem;
+    font-size: 0.78rem;
+  }
 }

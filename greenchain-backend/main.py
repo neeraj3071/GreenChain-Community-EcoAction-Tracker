@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 import os
 
-from app.routers import auth, actions, leaderboard, challenges, social, achievements, carbon_calculator
+from app.routers import auth, actions, leaderboard, challenges, social, achievements, carbon_calculator, chatbot
 from app.services.database import connect_to_mongo, close_mongo_connection
 
 # Load environment variables
@@ -53,6 +53,7 @@ app.include_router(challenges.router, prefix="/api/challenges", tags=["challenge
 app.include_router(social.router, prefix="/api/social", tags=["social"])
 app.include_router(achievements.router, prefix="/api/achievements", tags=["achievements"])
 app.include_router(carbon_calculator.router, prefix="/api/carbon", tags=["carbon-calculator"])
+app.include_router(chatbot.router, prefix="/api/chatbot", tags=["chatbot"])
 
 @app.get("/")
 async def root():

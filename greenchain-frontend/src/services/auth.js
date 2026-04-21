@@ -262,6 +262,13 @@ export const carbonService = {
   }
 };
 
+export const chatbotService = {
+  async askQuestion(question, history = []) {
+    const response = await api.post('/api/chatbot/ask', { question, history });
+    return response.data;
+  }
+};
+
 // Enhanced actionsService with new AI features
 export const aiService = {
   async getRecommendations() {

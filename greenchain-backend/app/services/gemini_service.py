@@ -403,5 +403,137 @@ class GeminiService:
             }
         }
 
+    async def answer_environment_question(self, question: str, history: List[Dict[str, str]] = None) -> Dict[str, Any]:
+        """Answer environment-related questions with a simple direct response."""
+        history = history or []
+        question_text = question.strip()
+        text = question_text.lower()
+
+        history_text = "\n".join(
+            f"{msg.get('role', 'user')}: {msg.get('content', '')}" for msg in history[-8:]
+        )
+
+        if not self.use_mock:
+            try:
+                prompt = f"""
+                You are EcoStreak's environment assistant.
+
+                Answer the user's environmental question directly and practically.
+                Keep the answer concise, useful, and specific.
+                Topics can include energy, water, waste, transport, plants, gardens, biodiversity, composting, recycling, and climate.
+
+                Conversation history:
+                {history_text if history_text else 'No prior messages.'}
+
+                User question: {question}
+
+                Return JSON only:
+                {{
+                  "answer": "direct answer",
+                  "topic": "energy|water|waste|transport|food|biodiversity|general",
+                  "suggested_actions": ["up to 5 practical next steps"]
+                }}
+                """
+
+                response = await asyncio.to_thread(self.model.generate_content, prompt)
+                clean_text = self._clean_json_response(response.text)
+                parsed = json.loads(clean_text)
+
+                answer = str(parsed.get("answer", "")).strip()
+                topic = str(parsed.get("topic", "general")).strip().lower() or "general"
+                suggested_actions = parsed.get("suggested_actions", [])
+                if not isinstance(suggested_actions, list):
+                    suggested_actions = []
+
+                return {
+                    "answer": answer or "I can help with environment-related questions. Ask me about energy, water, waste, transport, plants, or biodiversity.",
+                    "topic": topic,
+                    "suggested_actions": [str(action).strip() for action in suggested_actions if str(action).strip()][:5],
+                }
+            except Exception as e:
+                print(f"Gemini API error: {e}")
+
+        if any(word in text for word in ["electricity", "electric", "power", "energy", "lights", "ac", "appliance"]):
+            return {
+                "answer": "To reduce electricity use, focus on lighting, cooling, and standby power: switch to LED bulbs, turn off unused lights and appliances, raise the AC setting a little, clean filters, and unplug chargers or idle devices.",
+                "topic": "energy",
+                "suggested_actions": [
+                    "Replace old bulbs with LEDs",
+                    "Turn off unused lights and appliances",
+                    "Set the AC to a more efficient temperature",
+                    "Unplug chargers and idle devices",
+                    "Use fans and natural light when possible",
+                ],
+            }
+
+        if any(word in text for word in ["water", "shower", "tap", "leak", "conserve"]):
+            return {
+                "answer": "To save water, fix leaks quickly, shorten showers, turn off taps while brushing or washing, and use low-flow fixtures if you can.",
+                "topic": "water",
+                "suggested_actions": [
+                    "Fix leaking taps and pipes",
+                    "Take shorter showers",
+                    "Turn off the tap while brushing",
+                    "Use low-flow fixtures",
+                ],
+            }
+
+        if any(word in text for word in ["waste", "plastic", "recycle", "trash", "compost", "garbage"]):
+            return {
+                "answer": "To reduce waste, refuse single-use items, reuse containers and bags, sort recyclables correctly, and compost organic scraps when possible.",
+                "topic": "waste",
+                "suggested_actions": [
+                    "Use reusable bags and bottles",
+                    "Sort recycling properly",
+                    "Compost food scraps",
+                    "Avoid single-use packaging",
+                ],
+            }
+
+        if any(word in text for word in ["bike", "car", "bus", "transport", "commute", "travel"]):
+            return {
+                "answer": "To cut transport emissions, walk or bike for short trips, use public transport when possible, carpool for longer trips, and combine errands into one route.",
+                "topic": "transport",
+                "suggested_actions": [
+                    "Walk or bike short trips",
+                    "Use public transport more often",
+                    "Carpool when possible",
+                    "Combine errands into one trip",
+                ],
+            }
+
+        if any(word in text for word in ["plant", "plants", "houseplant", "garden", "gardening", "soil", "watering", "sunlight", "leaf", "leaves"]):
+            return {
+                "answer": "For your plants, give them the right light, water only when the top soil dries, keep drainage open, and check leaves regularly for stress or pests.",
+                "topic": "biodiversity",
+                "suggested_actions": [
+                    "Check each plant's light needs",
+                    "Water only when top soil is dry",
+                    "Ensure the pot drains well",
+                    "Inspect leaves weekly",
+                ],
+            }
+
+        if any(word in text for word in ["tree", "biodiversity", "nature", "pollinator", "native species"]):
+            return {
+                "answer": "To support biodiversity, plant native species, avoid unnecessary chemicals, improve soil health with compost or mulch, and provide habitat and water for pollinators.",
+                "topic": "biodiversity",
+                "suggested_actions": [
+                    "Plant native species",
+                    "Avoid chemical pesticides",
+                    "Use compost or mulch",
+                    "Support pollinators with habitat and water",
+                ],
+            }
+
+        return {
+            "answer": "I can help with environment-related questions like saving energy, reducing waste, conserving water, improving transport habits, protecting biodiversity, and caring for plants or gardens. Ask me anything specific and I’ll give practical steps.",
+            "topic": "general",
+            "suggested_actions": [
+                "Ask about energy, water, waste, transport, biodiversity, or plants",
+                "Share your goal and I’ll suggest practical steps",
+            ],
+        }
+
 # Create singleton instance
 gemini_service = GeminiService()

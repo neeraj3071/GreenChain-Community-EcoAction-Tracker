@@ -151,3 +151,19 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     email: Optional[str] = None
+
+
+class ChatMessage(BaseModel):
+    role: str
+    content: str
+
+
+class ChatbotRequest(BaseModel):
+    question: str = Field(min_length=2, max_length=1000)
+    history: List[ChatMessage] = Field(default_factory=list)
+
+
+class ChatbotResponse(BaseModel):
+    answer: str
+    topic: str
+    suggested_actions: List[str] = Field(default_factory=list)

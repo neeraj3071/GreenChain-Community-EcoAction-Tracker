@@ -35,10 +35,7 @@ const Login = ({ onLogin }) => {
         return;
       }
 
-      // Send OTP for 2FA - this also validates the email exists
-      await authService.sendLoginOTP(formData.email);
-      
-      // Step 2: Show OTP verification screen
+      // Show OTP verification screen; the OTP component sends the code once on mount.
       setShowOTP(true);
       setLoading(false);
       
@@ -108,7 +105,7 @@ const Login = ({ onLogin }) => {
           <div className="flex justify-center">
             <div className="flex items-center space-x-2">
               <Leaf className="h-12 w-12 text-green-primary" />
-              <h2 className="text-3xl font-bold text-green-secondary">GreenChain</h2>
+              <h2 className="text-3xl font-bold text-green-secondary">EcoStreak</h2>
             </div>
           </div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">

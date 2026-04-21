@@ -99,19 +99,27 @@ async def connect_to_mongo():
 
     tls_allow_invalid_certificates = os.getenv("MONGODB_TLS_ALLOW_INVALID_CERTIFICATES", "false").lower() == "true"
     tls_allow_invalid_hostnames = os.getenv("MONGODB_TLS_ALLOW_INVALID_HOSTNAMES", "false").lower() == "true"
+    use_tls = mongodb_url.startswith("mongodb+srv://") or os.getenv("MONGODB_USE_TLS", "false").lower() == "true"
+
+    client_kwargs = {
+        "serverSelectionTimeoutMS": server_selection_timeout_ms,
+        "connectTimeoutMS": connect_timeout_ms,
+        "socketTimeoutMS": socket_timeout_ms,
+    }
+
+    if use_tls:
+        client_kwargs.update(
+            {
+                "tlsCAFile": certifi.where(),
+                "tlsAllowInvalidCertificates": tls_allow_invalid_certificates,
+                "tlsAllowInvalidHostnames": tls_allow_invalid_hostnames,
+            }
+        )
 
     last_error: Optional[Exception] = None
     for attempt in range(1, connect_retries + 1):
         try:
-            database.client = AsyncIOMotorClient(
-                mongodb_url,
-                serverSelectionTimeoutMS=server_selection_timeout_ms,
-                connectTimeoutMS=connect_timeout_ms,
-                socketTimeoutMS=socket_timeout_ms,
-                tlsCAFile=certifi.where(),
-                tlsAllowInvalidCertificates=tls_allow_invalid_certificates,
-                tlsAllowInvalidHostnames=tls_allow_invalid_hostnames,
-            )
+            database.client = AsyncIOMotorClient(mongodb_url, **client_kwargs)
             await database.client.admin.command("ping")
             print("Connected to MongoDB")
             return

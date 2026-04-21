@@ -25,6 +25,19 @@ class EmailService:
     def generate_otp(self, length=6):
         """Generate a random OTP"""
         return ''.join(random.choices(string.digits, k=length))
+
+    async def _get_recent_unexpired_otp(self, email: str, purpose: str, cooldown_seconds: int = 60):
+        otps_collection = await get_collection("otps")
+        cutoff = datetime.utcnow() - timedelta(seconds=cooldown_seconds)
+        return await otps_collection.find_one(
+            {
+                "email": email,
+                "purpose": purpose,
+                "used": False,
+                "created_at": {"$gte": cutoff},
+            },
+            sort=[("created_at", -1)],
+        )
     
     async def send_otp_email(self, to_email: str, otp: str, purpose: str = "verification"):
         """Send OTP via email"""
@@ -131,6 +144,11 @@ class EmailService:
     async def send_verification_otp(self, email: str):
         """Send email verification OTP"""
         try:
+            recent_otp = await self._get_recent_unexpired_otp(email, "email_verification")
+            if recent_otp:
+                print(f"⏱️ Reusing recent verification OTP for {email}; skipping duplicate email send")
+                return recent_otp["otp"]
+
             otp = self.generate_otp()
             print(f"📧 Generated OTP for {email}: {otp}")
             await self.store_otp(email, otp, "email_verification")
@@ -145,6 +163,11 @@ class EmailService:
     async def send_login_otp(self, email: str):
         """Send login 2FA OTP"""
         try:
+            recent_otp = await self._get_recent_unexpired_otp(email, "login_2fa")
+            if recent_otp:
+                print(f"⏱️ Reusing recent login OTP for {email}; skipping duplicate email send")
+                return recent_otp["otp"]
+
             otp = self.generate_otp()
             print(f"📧 Generated login OTP for {email}: {otp}")
             await self.store_otp(email, otp, "login_2fa")
